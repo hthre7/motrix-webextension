@@ -10,9 +10,14 @@ jobs:
           node-version: "12"
       - run: yarn install
       - run: yarn run build firefox
-      - name: Action Release
-  uses: yakuhzi/release-asset@v1.2.3
-  with:
-    # File to upload to the release
-    file: 
-     ../../packages/motrix-webextension.*.firefox.xpi.zip
+
+
+      # Release packages
+      # --------------------------------------        
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          draft: false
+          prerelease: false
+          files: |
+            ../../packages/motrix-webextension.*.firefox.xpi.zip            
