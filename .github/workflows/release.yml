@@ -41,20 +41,16 @@ jobs:
       - name: install
         run: yarn ci || yarn install
       - run: yarn run build ${{ matrix.command }}
-      - name: Update extension’s meta
-        run: >-
-          npx dot-json@1 $DIRECTORY/${{ matrix.command }}/manifest.json version ${{
-          needs.Version.outputs.version }}
-      - name: Submit
-        run: |
-          case ${{ matrix.command }} in
-            chrome)
-              cd $DIRECTORY/${{ matrix.command }} && npx chrome-webstore-upload-cli@1 upload --auto-publish
-              ;;
-            firefox)
-              cd $DIRECTORY/${{ matrix.command }} && npx web-ext-submit@5
-              ;;
-          esac
+        with:
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          draft: false
+          prerelease: false
+          automatic_release_tag: ${{ steps.get_version.outputs.VERSION }}
+          title: ${{ steps.get_version.outputs.VERSION }}
+          files: |
+            *.zip*
         env:
           EXTENSION_ID: ${{ secrets.EXTENSION_ID }}
           CLIENT_ID: ${{ secrets.CLIENT_ID }}
