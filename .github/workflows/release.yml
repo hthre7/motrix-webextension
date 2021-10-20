@@ -34,14 +34,12 @@ jobs:
       matrix:
         command:
           - firefox
-          - chrome
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
       - name: install
         run: yarn ci || yarn install
       - run: yarn run build ${{ matrix.command }}
-        with:
       - uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
