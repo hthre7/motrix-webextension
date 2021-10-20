@@ -13,8 +13,9 @@ jobs:
 
 
       # Release packages
-      # --------------------------------------        
+      # --------------------------------------
+      - name: Action Release
       - uses: yakuhzi/release-asset@v1.2.3
-          with:
-            file: |
-              ../../packages/motrix-webextension.*.firefox.xpi.zip            
+        with:
+          file: |
+             ../../packages/motrix-webextension.*.firefox.xpi.zip            
