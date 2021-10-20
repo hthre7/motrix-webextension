@@ -14,10 +14,7 @@ jobs:
 
       # Release packages
       # --------------------------------------        
-      - uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          draft: false
-          prerelease: false
-          files: |
-            ../../packages/motrix-webextension.*.firefox.xpi.zip            
+      - uses: yakuhzi/release-asset@v1.2.3
+          with:
+            file: |
+              ../../packages/motrix-webextension.*.firefox.xpi.zip            
